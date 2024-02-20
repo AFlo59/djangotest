@@ -1,14 +1,17 @@
 {% load static %}
 
+{% url 'funct_list' as funct %}
+{% url 'special' as special %}
+
 <header class='bg-gray-300'>
     <nav class='justify-between max-w-6xl mx-auto items-center px-6 h-16 text-base font-semibold hidden md:flex'>
         <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
-        <div class='flex lg:gap-x-16 gap-x-6'>
-            <a href="{% url "special" %}">Special</a>
-            <a href=" {% url "func-list" %} ">Fonctionnalités</a>
-            <a href="">Lien 3</a>
-        </div>
-
+            <div class='flex lg:gap-x-16 gap-x-6'>
+                <a class="hover:text-blue-300 {% if request.path == special %}font-underline{% endif %}" href="{{special}}">Special</a>
+                <a class="hover:text-blue-300 {% if request.path == funct %}font-underline{% endif %}" href="{{funct}}">Fonctionnalités</a>
+                <a href="#">Lien 3</a>
+            </div>
+        
         <div class='flex gap-x-2'>
         {% if user.is_authenticated %}
             <span>Logged as : {{user.get_username}}</span>
@@ -36,4 +39,9 @@
         <a href="">Login &#10132;</a>
     </nav>
 
+    <style>
+        .font-underline {
+            text-decoration: underline;
+        }
+    </style>
 </header>

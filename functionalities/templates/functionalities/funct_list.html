@@ -4,14 +4,15 @@
     <h2>Functionalities</h2>
     <ul>
         {% for funct in object_list %}
-            <li> 
-                {{funct.id}}
-                <a class='text-red-300 underline' href="/funct/{{funct.id}}"> {{ funct.name }} </a> 
+            <li>
+                {{ funct.id }}
+                <a class="text-red-300 underline" href="/funct/{{funct.id}}">{{funct.name}}</a>
 
-                <a class='text-blue-300' href=" {% url "func-detail" pk=funct.id %} "> {{ funct.name }} </a>
+                <a class="text-blue-300" href="{% url 'funct_detail' pk=funct.id %}">
+                    {{ funct.name }}
+                </a>
             </li>
         {% endfor %}
     </ul>
 {% endblock %}
-
 {% url "" %}
