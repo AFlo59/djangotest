@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static widget_tweaks %}
+
+{% block content %}
+<div style="text-align: center;">
+    <h1>Obtenir des informations sur les cryptos</h1>
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit" class="rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 border-none">
+    </form>
+</div>
+
+
+{% if data %}
+    <h2 style="text-align: center;">API Response:</h2>
+    <div style="display: flex; justify-content: center;">
+        <div style="display: flex; flex-wrap: wrap;">
+            {% for crypto in data.data %}
+                <div class="crypto-card">
+                    <h3>{{ crypto.name }}</h3>
+                    <p>Price: ${{ crypto.quote.USD.price }}</p>
+                    <p>Volume 24h: ${{ crypto.quote.USD.volume_24h }}</p>
+                    <p>Percent Change (7d): {{ crypto.quote.USD.percent_change_7d }}%</p>
+                    {% if crypto.quote.USD.market_cap_dominance %}
+                        <p>Market Cap Dominance: {{ crypto.quote.USD.market_cap_dominance }}</p>
+                    {% else %}
+                        <p>Market Cap Dominance: N/A</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+<style>
+    .crypto-card {
+        width: 300px;
+        margin: 10px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .crypto-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+</style>
+{% endblock content %}
